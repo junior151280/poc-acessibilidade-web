@@ -4,6 +4,8 @@ using OpenQA.Selenium.Chrome;
 using Deque.AxeCore.Selenium;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
+using System;
+using NUnit.Framework;
 
 
 namespace Az400_SeleniumTest
@@ -37,7 +39,11 @@ namespace Az400_SeleniumTest
         [TearDown]
         public void TeardownTest()
         {
-            driver.Quit();
+            if (driver != null)
+            {
+                driver.Quit();
+                driver.Dispose();
+            }
         }
 
         [Test]
