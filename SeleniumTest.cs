@@ -6,7 +6,7 @@ using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using System;
 using NUnit.Framework;
-
+using NUnit.Framework.Interfaces;
 
 namespace Az400_SeleniumTest
 {
@@ -112,14 +112,21 @@ namespace Az400_SeleniumTest
 
         public void TakeScreenshot(string fileName)
         {
+            if ((TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed) || (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Inconclusive))
+            {
+                // O teste falhou, tire uma captura de tela
+                string screenshotPath = Directory.GetCurrentDirectory() + "\\" + fileName + ".png"; // Define o caminho e o nome do arquivo da captura de tela
+                ((ITakesScreenshot)driver).GetScreenshot().SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
+            }
+
             //if ((this.TestContext.CurrentTestOutcome == UnitTestOutcome.Error) || (this.TestContext.CurrentTestOutcome == UnitTestOutcome.Failed))
             //{
-            ITakesScreenshot ssdriver = this.driver as ITakesScreenshot;
-            Screenshot screenshot = ssdriver.GetScreenshot();
+            //ITakesScreenshot ssdriver = this.driver as ITakesScreenshot;
+            //Screenshot screenshot = ssdriver.GetScreenshot();
 
-            string path = Directory.GetCurrentDirectory() + "\\" + fileName + ".png";
+            //string path = Directory.GetCurrentDirectory() + "\\" + fileName + ".png";
 
-            screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
+            //screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
 
             //adiciona o arquivo de screenshot como resultado do teste
 
