@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using System.Net.Mail;
 
 namespace Az400_SeleniumTest
 {
@@ -41,6 +42,7 @@ namespace Az400_SeleniumTest
         {
             if (driver != null)
             {
+                TakeScreenshot();
                 driver.Quit();
                 driver.Dispose();
             }
@@ -50,14 +52,12 @@ namespace Az400_SeleniumTest
         public void AccessibilityTest_InitialPage()
         {
             Selenium_CheckInitialPage();
-            TakeScreenshot(nameof(AccessibilityTest_InitialPage));
         }
 
         [Test]
         public void AccessibilityTest_ProjectPage()
         {
             Selenium_CheckProjectPage();
-            TakeScreenshot(nameof(AccessibilityTest_ProjectPage));
         }
 
 
@@ -106,33 +106,23 @@ namespace Az400_SeleniumTest
             }
             else
             {
-                Assert.That(driver.PageSource.Contains("Modelo Sefaz", StringComparison.OrdinalIgnoreCase), Is.True);
+                Assert.That(driver.PageSource.Contains("Projetos do DTI", StringComparison.OrdinalIgnoreCase), Is.True);
             }
         }
 
-        public void TakeScreenshot(string fileName)
+        private void TakeScreenshot()
         {
+            // O teste falhou, tire uma captura de tela
             if ((TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed) || (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Inconclusive))
             {
-                // O teste falhou, tire uma captura de tela
-                string screenshotPath = Directory.GetCurrentDirectory() + "\\" + fileName + ".png"; // Define o caminho e o nome do arquivo da captura de tela
-                ((ITakesScreenshot)driver).GetScreenshot().SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
+                // Define o caminho e o nome do arquivo da captura de tela
+                string screenshotPath = Directory.GetCurrentDirectory() + "\\" + TestContext.CurrentContext.Test.Name + ".png";
+
+                ((ITakesScreenshot)driver).GetScreenshot().SaveAsFile(screenshotPath);
+
+                // Adicione o anexo ao contexto do teste
+                TestContext.AddTestAttachment(screenshotPath, $@"Captura de Tela - {TestContext.CurrentContext.Test.Name}");
             }
-
-            //if ((this.TestContext.CurrentTestOutcome == UnitTestOutcome.Error) || (this.TestContext.CurrentTestOutcome == UnitTestOutcome.Failed))
-            //{
-            //ITakesScreenshot ssdriver = this.driver as ITakesScreenshot;
-            //Screenshot screenshot = ssdriver.GetScreenshot();
-
-            //string path = Directory.GetCurrentDirectory() + "\\" + fileName + ".png";
-
-            //screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
-
-            //adiciona o arquivo de screenshot como resultado do teste
-
-
-            //this.TestContext.AddResultFile(path);
-            //}
         }
     }
 }
