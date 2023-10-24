@@ -27,12 +27,12 @@ namespace Az400_SeleniumTest
             // Configurar e personalizar o comportamento do Google Chrome
             ChromeOptions options = new();
             // Personalizar o comportamento do Google Chrome para o teste
-            options.AddArguments("--headless");
-            options.AddArguments("start-maximized"); // Abrir o navegador em tela cheia
-            options.AddArguments("disable-infobars"); // Desabilitar as infobars
-            options.AddArguments("--disable-extensions"); // Desabilitar extensões
-            options.AddArguments("--disable-gpu"); // Desabilitar a GPU somente para Windows
-            options.AddArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+            options.AddArguments("--headless"); // Inicia o Chrome no modo sem interface gráfica
+            options.AddArguments("--start-maximized"); // Abrir o navegador em tela cheia
+            options.AddArguments("--disable-infobars"); // Desativa as infobars
+            options.AddArguments("--disable-extensions"); // Desativa extensões
+            options.AddArguments("--disable-gpu"); // Desativa a aceleração de hardware somente para Windows
+            options.AddArguments("--disable-dev-shm-usage"); // Desativa o uso compartilhado de memória em /dev/shm
             options.AddArguments("--no-sandbox"); // Bypass OS security model
             driver = new ChromeDriver(options);
         }
@@ -64,7 +64,6 @@ namespace Az400_SeleniumTest
             // Executa o teste de acessibilidade na página de projetos
             Selenium_CheckProjectPage();
         }
-
 
         private void Selenium_CheckInitialPage()
         {
