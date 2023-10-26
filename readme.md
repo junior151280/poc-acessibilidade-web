@@ -69,7 +69,17 @@ A seguir segue um passo a passo de como criar um projeto zerado de teste NUnit c
 }
 ```
 
-4. Substitua o conteúdo do arquivo ```UnitTest1.cs``` pelo seguinte:
+4. Adicione o seguinte trecho de código ao seu arquivo de projeto ```.csproj```:
+
+```xml
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+```
+
+5. Substitua o conteúdo do arquivo ```UnitTest1.cs``` pelo seguinte:
 
 ```csharp
 using Deque.AxeCore.Commons;
@@ -210,26 +220,6 @@ namespace SeleniumTest
         }
     }
 }
-```
-
-5. Crie um aqruivo de configuração para o seu projeto chamado ```appsettings.json``` e adicione o seguinte conteúdo:
-
-```json
-{
-  "TestSettings": {
-    "BaseUrl": "URL a ser avaliada pelo de teste de acessibilidade."
-  }
-}
-```
-
-6. Adicione o seguinte trecho de código ao seu arquivo de projeto ```.csproj```:
-
-```xml
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 ```
 
 ## Execute
