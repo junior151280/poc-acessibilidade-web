@@ -212,6 +212,26 @@ namespace SeleniumTest
 }
 ```
 
+5. Crie um aqruivo de configuração para o seu projeto chamado ```appsettings.json``` e adicione o seguinte conteúdo:
+
+```json
+{
+  "TestSettings": {
+    "BaseUrl": "URL a ser avaliada pelo de teste de acessibilidade."
+  }
+}
+```
+
+6. Adicione o seguinte trecho de código ao seu arquivo de projeto ```.csproj```:
+
+```xml
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+```
+
 ## Execute
 
 Para executar esse projeto, basta abrir o arquivo .sln no Visual Studio 2022 ou executar o comando abaixo:
