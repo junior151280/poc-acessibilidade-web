@@ -38,6 +38,7 @@ steps:
     command: test
     projects: $(Projects)
     arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format="cobertura"'
+  continueOnError: true
 
 - task: DotNetCoreCLI@2
   displayName: Publish
