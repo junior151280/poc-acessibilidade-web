@@ -14,25 +14,25 @@ Este repositório inclui o código-fonte de um projeto de prova de conceito dest
 
 ## AxeCore
 
-O AxeCore é uma ferramenta de código aberto que permite avaliar a acessibilidade de projetos da web. O AxeCore é um conjunto de bibliotecas que permite a avaliação de acessibilidade de projetos da web. Está disponível para diversas linguagens como csharp, Java, Python, Ruby, JavaScript, etc. Para mais informações sobre o AxeCore, basta acessar o ([repositório oficial](https://github.com/dequelabs/axe-core)) no GitHub.
+O AxeCore é uma ferramenta de código aberto que permite avaliar a acessibilidade de projetos da web. Está disponível para diversas linguagens como csharp, Java, Python, Ruby, JavaScript, etc. Para mais informações sobre o AxeCore, basta acessar o ([repositório oficial](https://github.com/dequelabs/axe-core)) no GitHub.
 
 Nesse exemplo foi utilizada a biblioteca ```Deque.AxeCore.Selenium```. Essa biblioteca permite a integração do AxeCore com o Selenium WebDriver, facilitando assim a utilização dos comandos de analisador de acessibilidade.
 
 ```csharp
-    AxeResult axeResult = new AxeBuilder(WebDriver).Analyze();
+AxeResult axeResult = new AxeBuilder(WebDriver).Analyze();
 ```
 
 Para instalar o Deque.AxeCore.Selenium, basta acessar o ([site oficial](https://github.com/dequelabs/axe-core-nuget)) e seguir as instruções de instalação.
 
 ## Selenium WebDriver
 
-O Selenium WebDriver é uma ferramenta de código aberto que permite automatizar ações em navegadores web. O Selenium WebDriver é um conjunto de bibliotecas que permite a interação com navegadores web. Está disponível para diversas linguagens como csharp, Java, Python, Ruby, JavaScript, etc. Para instalar o Selenium WebDriver, basta acessar o  ([site oficial](https://www.selenium.dev/documentation/webdriver/getting_started/install_library/)) e seguir as instruções de instalação para a linguagem escolhida.
+O Selenium WebDriver é uma ferramenta de código aberto que permite automatizar ações em navegadores web. Ele está disponível para diversas linguagens como csharp, Java, Python, Ruby, JavaScript, etc. Para instalar o Selenium WebDriver, basta acessar o  ([site oficial](https://www.selenium.dev/documentation/webdriver/getting_started/install_library/)) e seguir as instruções de instalação para a linguagem escolhida.
 
 ## Selenium IDE
 
-Para automatizar a navegação no site escolhido, foi utilizado o Selenium IDE. O Selenium IDE é uma ferramenta de código aberto que permite gravar e reproduzir testes no navegador. O Selenium IDE é um complemento do navegador que funciona no Google Chrome e no Firefox. Para instalar o Selenium IDE, basta acessar o site oficial ([Google Chrome](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd) ou [Firefox](https://addons.mozilla.org/en-US/firefox/addon/selenium-ide/))e seguir as instruções de instalação.
+Para automatizar a navegação no site escolhido, foi utilizado o Selenium IDE. O Selenium IDE é uma ferramenta de código aberto que permite gravar e reproduzir testes no navegador. O Selenium IDE é uma extensão do navegador que funciona no Google Chrome e no Firefox. Para instalar o Selenium IDE, basta acessar o site oficial ([Google Chrome](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd) ou [Firefox](https://addons.mozilla.org/en-US/firefox/addon/selenium-ide/))e seguir as instruções de instalação.
 
-Para gravar um teste, basta clicar no botão de gravação e navegar pelo site. O Selenium IDE irá gravar todas as ações realizadas no navegador. Para reproduzir o teste, basta clicar no botão de reprodução. O Selenium IDE irá reproduzir todas as ações gravadas no navegador.
+Para gravar um teste web, basta clicar no botão de gravação e navegar pelo site, o Selenium IDE irá gravar todas as ações realizadas no navegador. Para reproduzir o teste, basta clicar no botão de reprodução. O Selenium IDE irá reproduzir todas as ações gravadas no navegador.
 
 Após a validação das ações realizadas é possível exportar o test, no nosso caso para o ```csharp nunit```. Para isso, basta clicar no botão de exportação e selecionar a linguagem de programação desejada.
 
@@ -40,23 +40,23 @@ Com o resultado do export na mão podemos utilizar o código gerado no nosso pro
 
 ## Como criar um projeto de teste
 
-A seguir segue um passo a passo de como criar um projeto zerado de teste NUnit com Selenium e AxeCore.
+Com a sequência abaixo é possível criar um projeto template inicial de teste com NUnit, Selenium e AxeCore.
 
 1. Crie um novo projeto de teste NUnit no Visual Studio ou usando o comando de linha de comando:
 
 ```bash
-    dotnet new nunit -n SeleniumTest
+dotnet new nunit -n SeleniumTest
 ```
 
 2. Adicione as dependências do projeto:
 
 ```bash
-    dotnet add package Deque.AxeCore.Selenium
-    dotnet add package Selenium.WebDriver
-    dotnet add package Selenium.WebDriver.ChromeDriver
-    dotnet add package Microsoft.Extensions.Configuration
-    dotnet add package Microsoft.Extensions.Configuration.json
-    dotnet add package FluentAssertions
+dotnet add package Deque.AxeCore.Selenium
+dotnet add package Selenium.WebDriver
+dotnet add package Selenium.WebDriver.ChromeDriver
+dotnet add package Microsoft.Extensions.Configuration
+dotnet add package Microsoft.Extensions.Configuration.json
+dotnet add package FluentAssertions
 ```
 
 3. Crie um arquivo de configuração chamado ```appsettings.json``` e adicione o seguinte conteúdo:
@@ -72,11 +72,11 @@ A seguir segue um passo a passo de como criar um projeto zerado de teste NUnit c
 4. Adicione o seguinte trecho de código ao seu arquivo de projeto ```.csproj```:
 
 ```xml
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+<ItemGroup>
+  <None Update="appsettings.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
 ```
 
 5. Substitua o conteúdo do arquivo ```UnitTest1.cs``` pelo seguinte:
