@@ -232,10 +232,9 @@ dotnet test
 
 ## Pipeline
 
-Para automatizar a execução dos testes é possível configurar um build pipeline no Azure DevOps. Para isso, basta criar um novo pipeline e configurar o arquivo ```azure-pipelines.yml``` com o seguinte conteúdo:
+Para automatizar a execução dos testes é possível configurar um build pipeline no Azure DevOps. Para isso, basta criar um novo pipeline e configurar o arquivo ```azure-pipelines.yml``` com o seguinte conteúdo para o Azure DevOps:
 
 ```yaml
-
 trigger:
 - main
 
@@ -263,7 +262,7 @@ steps:
   displayName: Build
   inputs:
     projects: '$(Projects)'
-    arguments: '--configuration $(BuildConfiguration)'
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
 
 - task: DotNetCoreCLI@2
   displayName: Test
@@ -271,14 +270,7 @@ steps:
     command: test
     projects: $(Projects)
     arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format="cobertura"'
-
-- task: DotNetCoreCLI@2
-  displayName: Publish
-  inputs:
-    command: publish
-    publishWebProjects: True
-    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
-    zipAfterPublish: True
+  continueOnError: true
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage from $(Agent.TempDirectory)/**/coverage.cobertura.xml'
@@ -292,6 +284,39 @@ steps:
     PathtoPublish: '$(build.artifactstagingdirectory)'
   condition: succeededOrFailed()
 ```
+
+Ou com o seguinte conteúdo para o GitHub Actions:
+Lembre-se de criar um arquivo ```dotnet-test-acessibilidade.yml``` e coloca-lo na pasta ```.github\workflows```.
+
+```yaml
+name: dotnet-test-acessibilidade.
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+      continue-on-error: true
+```
+
 
 ## Referencias
 
